@@ -10,7 +10,7 @@ Require this package with composer using the following command:
 composer require lotfixyz/laravel-smartdetect
 ```
 
-After composer command done, add autoload to `autoload/psr-4` of your the `composer.json` file.
+After composer command done, add autoload to `autoload/psr-4` of your the `composer.json` file and run `composer dump-autoload` certainly.
 ```php
 "Lotfixyz\\Smartdetect\\": "vendor/lotfixyz/laravel-smartdetect/src"
 ```
@@ -28,6 +28,11 @@ Something like this:
 ...
 ```
 
+Finally add the service provider to the `providers` array in `config/app.php`
+```php
+Lotfixyz\Smartdetect\SmartdetectServiceProvider::class,
+```
+
 ### Install --dev
 
 To install this package on only development systems, add the `--dev` flag to your composer command:
@@ -35,7 +40,7 @@ To install this package on only development systems, add the `--dev` flag to you
 composer require --dev lotfixyz/laravel-smartdetect
 ```
 
-After composer command done, add autoload to `autoload-dev/psr-4` of your the `composer.json` file.
+After composer command done, add autoload to `autoload-dev/psr-4` of your the `composer.json` file and run `composer dump-autoload` certainly.
 ```php
 "Lotfixyz\\Smartdetect\\": "vendor/lotfixyz/laravel-smartdetect/src"
 ```
@@ -52,6 +57,17 @@ Something like this:
 },
 ...
 ```
+
+Finally, instead of adding the service provider in the `config/app.php` file, you can add the following code to your `app/Providers/AppServiceProvider.php` file, within the `register()` method:
+
+```php
+if ('production' !== $this->app->environment())
+{
+    $this->app->register(\Lotfixyz\Smartdetect\SmartdetectServiceProvider::class);
+}
+```
+
+This will allow your application to load the Smartdetect on non-production enviroments.
 
 ### Important Note:
 
