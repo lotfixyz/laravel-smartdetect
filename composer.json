@@ -1,0 +1,24 @@
+{
+    "name": "lotfixyz/laravel-smartdetect",
+    "description": "Cool development helper for Laravel.",
+    "require": {
+        "beberlei/assert": "dev-master"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohammad Lotfi",
+            "email": "info@lotfi.xyz"
+        }
+    ],
+    "minimum-stability": "dev",
+    "keywords": [
+        "cool",
+        "development",
+        "helper",
+        "laravel",
+        "laravel-smartdetect",
+        "lotfixyz",
+        "smartdetect"
+    ]
+}
