@@ -391,8 +391,8 @@ class SmartdetectClass
                 $id_factors = $user['id'];
                 $result =
                     [
-                        'id' => $this->make_user_id($id_factor, $id_factors),
                         'email' => $this->make_user_email($email_factor, $email_factors),
+                        'id' => $this->make_user_id($id_factor, $id_factors),
                     ];
                 $this->results['user'] = $result;
             }
