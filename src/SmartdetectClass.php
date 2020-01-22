@@ -291,8 +291,8 @@ class SmartdetectClass
                 'domain_name' => null,
                 'ip' => null,
                 'request' => null,
-                'user_id' => null,
                 'user_email' => null,
+                'user_id' => null,
             ];
         $this->result->flatten = $this->result->flatten_factors;
         $this->result->at_least_one = false;
@@ -340,8 +340,8 @@ class SmartdetectClass
         $flatten_factors['domain_name'] = $factor_based['domain']['name'];
         $flatten_factors['ip'] = $factor_based['ip'];
         $flatten_factors['request'] = $factor_based['request'];
-        $flatten_factors['user'] = $factor_based['user']['email'];
-        $flatten_factors['user'] = $factor_based['user']['id'];
+        $flatten_factors['user_email'] = $factor_based['user']['email'];
+        $flatten_factors['user_id'] = $factor_based['user']['id'];
         $this->result->flatten_factors = $flatten_factors;
     }
 
