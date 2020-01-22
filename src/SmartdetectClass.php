@@ -431,10 +431,9 @@ class SmartdetectClass
         if ($factor = Request::getClientIp()) {
             $factors = $this->factors['ip'];
             if (in_array($factor, $factors)) {
-                $result = $factor;
+				$this->results['ip'] = $factor;
             }
         }
-        $this->results['ip'] = $result;
     }
 
     /**
