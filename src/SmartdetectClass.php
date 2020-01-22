@@ -16,77 +16,77 @@ class SmartdetectClass
      *
      */
     public const DOMAIN_TYPE_ENTIRE = 0;
-    
+
     /**
      *
      */
     public const DOMAIN_TYPE_EXTENSION = 1;
-    
+
     /**
      *
      */
     public const DOMAIN_TYPE_NAME = 2;
-    
+
     /**
      *
      */
     public const USER_TYPE_EMAIL = 0;
-    
+
     /**
      *
      */
     public const USER_TYPE_ID = 1;
-    
+
     /**
      *
      */
     public const INVOLVE_AUTO = false;
-    
+
     /**
      *
      */
     public const INVOLVE_NO = false;
-    
+
     /**
      *
      */
     public const INVOLVE_YES = true;
-    
+
     /**
      * @var \stdClass
      */
     public $result;
-    
+
     /**
      * @var \stdClass
      */
     protected $config;
-    
+
     /**
      * @var array
      */
     protected $is_off = true;
-    
+
     /**
      * @var array
      */
     protected $is_on = false;
-    
+
     /**
      * @var
      */
     protected $factors;
-    
+
     /**
      * @var
      */
     protected $results;
-    
+
     /**
      * @var array
      */
     public $result_types = ['factor_based', 'flatten_factors', 'flatten', 'at_least_one', 'exact_all'];
-    
+
     /**
      * @param $user
      */
@@ -108,7 +108,7 @@ class SmartdetectClass
         }
         $this->factors['user'] = array_merge($this->factors['user'], $user);
     }
-    
+
     /**
      * @param $request
      */
@@ -119,7 +119,7 @@ class SmartdetectClass
         }
         $this->factors['request'] = array_merge($this->factors['request'], $request);
     }
-    
+
     /**
      * @param $ip
      */
@@ -130,7 +130,7 @@ class SmartdetectClass
         }
         $this->factors['ip'] = array_merge($this->factors['ip'], $ip);
     }
-    
+
     /**
      * @param $domain
      */
@@ -153,7 +153,7 @@ class SmartdetectClass
         }
         $this->factors['domain'] = array_merge($this->factors['domain'], $domain);
     }
-    
+
     /**
      *
      */
@@ -173,7 +173,7 @@ class SmartdetectClass
             $this->initial_involve_user($factors['user']);
         }
     }
-    
+
     /**
      *
      */
@@ -183,7 +183,7 @@ class SmartdetectClass
             $this->initial_involve_config();
         }
     }
-    
+
     /**
      *
      */
@@ -191,7 +191,7 @@ class SmartdetectClass
     {
         $this->results = $this->factors;
     }
-    
+
     /**
      *
      */
@@ -214,7 +214,7 @@ class SmartdetectClass
                     ],
             ];
     }
-    
+
     /**
      *
      */
@@ -234,7 +234,7 @@ class SmartdetectClass
         $this->config->involve_user = config('smartdetect.involve_user', true);
         Assert::that($this->config->involve_user)->boolean();
     }
-    
+
     /**
      *
      */
@@ -245,7 +245,7 @@ class SmartdetectClass
         $this->initial_results();
         $this->initial_involve();
     }
-    
+
     /**
      *
      */
@@ -261,7 +261,7 @@ class SmartdetectClass
             $this->initial();
         }
     }
-    
+
     /**
      *
      */
@@ -298,7 +298,7 @@ class SmartdetectClass
         $this->result->at_least_one = false;
         $this->result->exact_all = false;
     }
-    
+
     /**
      * SmartdetectClass constructor.
      */
@@ -307,16 +307,16 @@ class SmartdetectClass
         $this->sector_0();
         $this->boot();
     }
-    
+
     /**
      * SmartdetectClass destructor
      *
      */
     public function __destruct()
     {
-        
+
     }
-    
+
     /**
      *
      */
@@ -328,7 +328,7 @@ class SmartdetectClass
         }
         $this->result->flatten = $flatten;
     }
-    
+
     /**
      *
      */
@@ -344,7 +344,7 @@ class SmartdetectClass
         $flatten_factors['user'] = $factor_based['user']['id'];
         $this->result->flatten_factors = $flatten_factors;
     }
-    
+
     /**
      *
      */
@@ -356,7 +356,7 @@ class SmartdetectClass
         $this->result->at_least_one = in_array(true, $this->result->flatten);
         $this->result->exact_all = !in_array(false, $this->result->flatten);
     }
-    
+
     /**
      * @param $factor
      * @param $factors
@@ -366,7 +366,7 @@ class SmartdetectClass
     {
         return in_array($factor, $factors) ? $factor : null;
     }
-    
+
     /**
      * @param $factor
      * @param $factors
@@ -376,7 +376,7 @@ class SmartdetectClass
     {
         return in_array($factor, $factors) ? $factor : null;
     }
-    
+
     /**
      *
      */
@@ -391,14 +391,14 @@ class SmartdetectClass
                 $id_factors = $user['id'];
                 $result =
                     [
-                        'user_id' => $this->make_user_id($id_factor, $id_factors),
-                        'user_email' => $this->make_user_email($email_factor, $email_factors),
+                        'id' => $this->make_user_id($id_factor, $id_factors),
+                        'email' => $this->make_user_email($email_factor, $email_factors),
                     ];
-                $this->results['domain'] = $result;
+                $this->results['user'] = $result;
             }
         }
     }
-    
+
     /**
      *
      */
@@ -422,7 +422,7 @@ class SmartdetectClass
         }
         $this->results['request'] = $result;
     }
-    
+
     /**
      *
      */
@@ -436,7 +436,7 @@ class SmartdetectClass
         }
         $this->results['ip'] = $result;
     }
-    
+
     /**
      * @param $factor
      * @param $factors
@@ -446,7 +446,7 @@ class SmartdetectClass
     {
         return in_array($factor, $factors) ? $factor : null;
     }
-    
+
     /**
      * @param $factor
      * @param $factors
@@ -454,7 +454,11 @@ class SmartdetectClass
      */
     protected function make_domain_extension($factor, $factors)
     {
-        $extension = array_last(explode('.', $factor));
+        if (function_exists('array_last')) {
+            $extension = array_last(explode('.', $factor));
+        } else {
+            $extension = \Arr::last(explode('.', $factor));
+        }
         foreach ($factors as $v) {
             if (preg_match("/\.$extension$/", '.' . $v)) {
                 return $v;
@@ -462,7 +466,7 @@ class SmartdetectClass
         }
         return null;
     }
-    
+
     /**
      * @param $factor
      * @param $factors
@@ -470,7 +474,11 @@ class SmartdetectClass
      */
     protected function make_domain_name($factor, $factors)
     {
-        $name = array_first(explode('.', $factor));
+        if (function_exists('array_first')) {
+            $name = array_first(explode('.', $factor));
+        } else {
+            $name = \Arr::first(explode('.', $factor));
+        }
         foreach ($factors as $v) {
             if (preg_match("/^$name\./", $v . '.')) {
                 return $v;
@@ -478,7 +486,7 @@ class SmartdetectClass
         }
         return null;
     }
-    
+
     /**
      *
      */
@@ -498,7 +506,7 @@ class SmartdetectClass
             $this->results['domain'] = $result;
         }
     }
-    
+
     /**
      *
      */
@@ -512,7 +520,7 @@ class SmartdetectClass
             $this->make_result();
         }
     }
-    
+
     /**
      * @return mixed
      */
@@ -520,7 +528,7 @@ class SmartdetectClass
     {
         return $this->factors;
     }
-    
+
     /**
      * @param $factor
      */
@@ -531,7 +539,7 @@ class SmartdetectClass
             array_push($this->factors['ip'], $factor);
         }
     }
-    
+
     /**
      * @param $factor
      * @param $type
@@ -556,7 +564,7 @@ class SmartdetectClass
             }
         }
     }
-    
+
     /**
      * @param $factor
      * @param int $value
@@ -581,7 +589,7 @@ class SmartdetectClass
             }
         }
     }
-    
+
     /**
      * @param $factor
      * @param $type

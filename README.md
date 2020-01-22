@@ -1,7 +1,7 @@
 ## Laravel Smartdetect
 ___Cool development helper for Laravel.___
 
-_Tested on Laravel 5.8_
+_Tested on Laravel 5.8 and 6.2_
 
 ### Install
 
