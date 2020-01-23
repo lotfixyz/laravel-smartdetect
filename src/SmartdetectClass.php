@@ -394,8 +394,15 @@ class SmartdetectClass
                         'email' => $this->make_user_email($email_factor, $email_factors),
                         'id' => $this->make_user_id($id_factor, $id_factors),
                     ];
-                $this->results['user'] = $result;
+            } else
+            {
+                $result =
+                    [
+                        'email' => null,
+                        'id' => null,
+                    ];
             }
+            $this->results['user'] = $result;
         }
     }
 
@@ -431,7 +438,7 @@ class SmartdetectClass
         if ($factor = Request::getClientIp()) {
             $factors = $this->factors['ip'];
             if (in_array($factor, $factors)) {
-				$this->results['ip'] = $factor;
+                $this->results['ip'] = $factor;
             }
         }
     }
